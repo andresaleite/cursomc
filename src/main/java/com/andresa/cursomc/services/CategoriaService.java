@@ -2,11 +2,11 @@ package com.andresa.cursomc.services;
 
 import java.util.Optional;
 
-import org.hibernate.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.andresa.cursomc.domain.Categoria;
+import com.andresa.cursomc.exceptions.ObjectNotFoundException;
 import com.andresa.cursomc.repositories.CategoriaRepository;
 
 @Service
