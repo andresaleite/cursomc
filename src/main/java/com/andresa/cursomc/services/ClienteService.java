@@ -1,5 +1,6 @@
 package com.andresa.cursomc.services;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,10 +10,16 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.andresa.cursomc.domain.Cidade;
 import com.andresa.cursomc.domain.Cliente;
+import com.andresa.cursomc.domain.Endereco;
+import com.andresa.cursomc.domain.enums.TipoCliente;
 import com.andresa.cursomc.dto.ClienteDTO;
+import com.andresa.cursomc.dto.ClienteNewDTO;
 import com.andresa.cursomc.repositories.ClienteRepository;
+import com.andresa.cursomc.repositories.EnderecoRepository;
 import com.andresa.cursomc.servicies.exceptions.DataIntegrityException;
 import com.andresa.cursomc.servicies.exceptions.ObjectNotFoundException;
 
@@ -21,6 +28,8 @@ public class ClienteService {
 	
 	@Autowired
 	private ClienteRepository repo;
+	@Autowired
+	private EnderecoRepository enderecoRepo;
 
 	public Cliente find(Integer id) {
 		Optional<Cliente> obj = repo.findById(id);
@@ -39,9 +48,12 @@ public class ClienteService {
 		
 	}
 	
+	@Transactional
 	public Cliente insert(Cliente obj) {
 		obj.setId(null);
-		return (Cliente) repo.saveAndFlush(obj);
+		obj = repo.saveAndFlush(obj);
+		enderecoRepo.saveAll(obj.getEnderecos());
+		return obj;
 	}
 	
 	public Cliente update(Cliente obj) {
@@ -67,5 +79,17 @@ public class ClienteService {
 	
 	public Cliente fromDTO(ClienteDTO objDTO) {
 		return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(), null, null); 
+	}
+	
+	public Cliente fromNewDTO(ClienteNewDTO objNewDTO) {
+		Cliente cli 	= new Cliente(null, objNewDTO.getNome(), objNewDTO.getEmail(), objNewDTO.getCpfOuCnpj(), TipoCliente.toEnum(objNewDTO.getTipo()));
+		Cidade cid		= new Cidade(objNewDTO.getCidadeId(), null, null);
+		Endereco end 	= new Endereco(null, objNewDTO.getLogradouro(), 
+						objNewDTO.getNumero(), objNewDTO.getComplemento(), 
+						objNewDTO.getBairro(), objNewDTO.getCep(), cli, cid);
+		cli.getEnderecos().add(end);
+		cli.getTelefones().addAll(Arrays.asList(objNewDTO.getTelefone1(), objNewDTO.getTelefone2(), objNewDTO.getTelefone3()));
+		
+		return cli;
 	}
 }
