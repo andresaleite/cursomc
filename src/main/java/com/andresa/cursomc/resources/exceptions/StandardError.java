@@ -1,4 +1,4 @@
-package com.andresa.cursomc.repositories.exceptions;
+package com.andresa.cursomc.resources.exceptions;
 
 import java.io.Serializable;
 
