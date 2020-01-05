@@ -1,12 +1,19 @@
 package com.andresa.cursomc.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort.Direction;
 import org.springframework.stereotype.Service;
 
 import com.andresa.cursomc.domain.Cliente;
+import com.andresa.cursomc.dto.ClienteDTO;
 import com.andresa.cursomc.repositories.ClienteRepository;
+import com.andresa.cursomc.servicies.exceptions.DataIntegrityException;
 import com.andresa.cursomc.servicies.exceptions.ObjectNotFoundException;
 
 @Service
@@ -20,5 +27,45 @@ public class ClienteService {
 		return obj.orElseThrow(() -> new ObjectNotFoundException(
 		"Objeto não encontrado! Id: " + id + ", Tipo: " + Cliente.class.getName(), null));
 		
+	}
+	
+	public Page<Cliente> findPage(Integer page, Integer linesPerPage, String orderBy, String direction) {
+		PageRequest pageRequest =  PageRequest.of(page, linesPerPage, Direction.valueOf(direction),	orderBy);
+		return repo.findAll(pageRequest);
+	}
+	
+	public List<Cliente> findAll() {
+		return repo.findAll();
+		
+	}
+	
+	public Cliente insert(Cliente obj) {
+		obj.setId(null);
+		return (Cliente) repo.saveAndFlush(obj);
+	}
+	
+	public Cliente update(Cliente obj) {
+		Cliente newObj = this.find(obj.getId());
+		updateData(newObj, obj);
+		return (Cliente) repo.saveAndFlush(newObj);
+	}
+	
+	private void updateData(Cliente newObj, Cliente obj) {
+		newObj.setNome(obj.getNome());
+		newObj.setEmail(obj.getEmail());
+	}
+
+	public void delete(Integer id) {
+		this.find(id);
+		try {
+			repo.deleteById(id);
+		}
+		catch(DataIntegrityViolationException e) {
+			throw new DataIntegrityException("Não é possível excluir pois há entidades relacionadas.");
+		}
+	}
+	
+	public Cliente fromDTO(ClienteDTO objDTO) {
+		return new Cliente(objDTO.getId(), objDTO.getNome(), objDTO.getEmail(), null, null); 
 	}
 }
