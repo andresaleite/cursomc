@@ -44,9 +44,15 @@ public class CategoriaService {
 		return (Categoria) repo.saveAndFlush(obj);
 	}
 	
+		
 	public Categoria update(Categoria obj) {
-		this.find(obj.getId());
-		return (Categoria) repo.saveAndFlush(obj);
+		Categoria newObj = this.find(obj.getId());
+		updateData(newObj, obj);
+		return (Categoria) repo.saveAndFlush(newObj);
+	}
+	
+	private void updateData(Categoria newObj, Categoria obj) {
+		newObj.setNome(obj.getNome());
 	}
 	
 	public void delete(Integer id) {
