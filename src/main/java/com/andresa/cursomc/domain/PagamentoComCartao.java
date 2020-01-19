@@ -3,7 +3,9 @@ package com.andresa.cursomc.domain;
 import javax.persistence.Entity;
 
 import com.andresa.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonTypeName;
 
+@JsonTypeName("pagamentoComCartao") 
 @Entity
 public class PagamentoComCartao extends Pagamento{
 	
