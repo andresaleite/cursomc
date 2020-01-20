@@ -12,8 +12,8 @@ import com.andresa.cursomc.services.EmailService;
 import com.andresa.cursomc.services.MockEmailService;
 
 @Configuration
-@Profile("teste")
-public class TesteConfig {
+@Profile("test")
+public class TestConfig {
 
 	@Autowired
 	private DBService dbservice;

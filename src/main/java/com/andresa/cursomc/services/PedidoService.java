@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.andresa.cursomc.domain.ItemPedido;
 import com.andresa.cursomc.domain.PagamentoComBoleto;
 import com.andresa.cursomc.domain.Pedido;
-import com.andresa.cursomc.domain.Produto;
 import com.andresa.cursomc.domain.enums.EstadoPagamento;
 import com.andresa.cursomc.repositories.ItemPedidoRepository;
 import com.andresa.cursomc.repositories.PagamentoRepository;
