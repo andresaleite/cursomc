@@ -47,6 +47,11 @@ public class JWTUtil {
 		return null;
 	}
 	
+	/**
+	 * Claim siginifica reivindicação
+	 * @param token
+	 * @return
+	 */
 	private Claims getClaims(String token) {
 		try {
 			return Jwts.parser().setSigningKey(secret.getBytes()).parseClaimsJws(token).getBody();
