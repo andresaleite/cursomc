@@ -1,4 +1,4 @@
-package com.andresa.cursomc.servicies.exceptions;
+package com.andresa.cursomc.services.exceptions;
 
 public class ObjectNotFoundException extends RuntimeException {
 

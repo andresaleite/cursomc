@@ -13,7 +13,7 @@ import com.andresa.cursomc.domain.enums.EstadoPagamento;
 import com.andresa.cursomc.repositories.ItemPedidoRepository;
 import com.andresa.cursomc.repositories.PagamentoRepository;
 import com.andresa.cursomc.repositories.PedidoRepository;
-import com.andresa.cursomc.servicies.exceptions.ObjectNotFoundException;
+import com.andresa.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class PedidoService {

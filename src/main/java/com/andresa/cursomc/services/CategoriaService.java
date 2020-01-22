@@ -13,8 +13,8 @@ import org.springframework.stereotype.Service;
 import com.andresa.cursomc.domain.Categoria;
 import com.andresa.cursomc.dto.CategoriaDTO;
 import com.andresa.cursomc.repositories.CategoriaRepository;
-import com.andresa.cursomc.servicies.exceptions.DataIntegrityException;
-import com.andresa.cursomc.servicies.exceptions.ObjectNotFoundException;
+import com.andresa.cursomc.services.exceptions.DataIntegrityException;
+import com.andresa.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class CategoriaService {

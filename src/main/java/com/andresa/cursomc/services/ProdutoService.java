@@ -13,7 +13,7 @@ import com.andresa.cursomc.domain.Categoria;
 import com.andresa.cursomc.domain.Produto;
 import com.andresa.cursomc.repositories.CategoriaRepository;
 import com.andresa.cursomc.repositories.ProdutoRepository;
-import com.andresa.cursomc.servicies.exceptions.ObjectNotFoundException;
+import com.andresa.cursomc.services.exceptions.ObjectNotFoundException;
 
 @Service
 public class ProdutoService {
