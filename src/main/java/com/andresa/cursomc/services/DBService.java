@@ -103,16 +103,20 @@ public class DBService {
 
 		Estado est1 = new Estado(null, "Minas Gerais");
 		Estado est2 = new Estado(null, "São Paulo");
+		Estado est3 = new Estado(null, "Ceará");
 		
-		Cidade c1 = new Cidade(null, "Uberlândia", est2);
+		Cidade c1 = new Cidade(null, "Uberlândia", est1);
 		Cidade c2 = new Cidade(null, "São Paulo", est2);
-		Cidade c3 = new Cidade(null, "Campinas", est1);
+		Cidade c3 = new Cidade(null, "Campinas", est2);
+		Cidade c4 = new Cidade(null, "Fortaleza", est3);
+		Cidade c5 = new Cidade(null, "Ibiapina", est3);
 		
-		est1.getCidades().addAll(Arrays.asList(c3));
-		est2.getCidades().addAll(Arrays.asList(c1, c2));
+		est1.getCidades().addAll(Arrays.asList(c1));
+		est2.getCidades().addAll(Arrays.asList(c2, c3));
+		est3.getCidades().addAll(Arrays.asList(c4, c5));
 
-		estadoRepo.saveAll(Arrays.asList(est1, est2));
-		cidadeRepo.saveAll(Arrays.asList(c1, c2, c3));
+		estadoRepo.saveAll(Arrays.asList(est1, est2, est3));
+		cidadeRepo.saveAll(Arrays.asList(c1, c2, c3, c4, c5));
 		
 		Cliente cli1 = new Cliente(null, "Maria Silva", "andresaleite@gmail.com", "90765788187", TipoCliente.PESSOAFISICA, pe.encode("123"));
 		cli1.getTelefones().addAll(Arrays.asList("55123456","661234566","551354544"));
