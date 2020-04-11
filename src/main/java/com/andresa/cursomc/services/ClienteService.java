@@ -43,8 +43,8 @@ public class ClienteService {
 	
 	@Autowired
 	private S3Service s3Service;
-	/*
-	@Autowired
+	
+	/*@Autowired
 	private ImageService imageService;*/
 
 	public Cliente find(Integer id) {
@@ -115,17 +115,21 @@ public class ClienteService {
 	}
 	
 	public URI uploadProfilePicture(MultipartFile multipartFile) {
-		/*UserSS user = UserService.authenticated();
+		UserSS user = UserService.authenticated();
 		if (user == null) {
 			throw new AuthorizationException("Acesso negado");
 		}
 		
-		BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
+		/*BufferedImage jpgImage = imageService.getJpgImageFromFile(multipartFile);
 		jpgImage = imageService.cropSquare(jpgImage);
 		jpgImage = imageService.resize(jpgImage, size);
 		
 		String fileName = prefix + user.getId() + ".jpg";*/
 		
+		URI uri = s3Service.uploadFile(multipartFile);
+		Cliente cli = this.find(user.getId());
+		cli.setImageUrl(uri.toString());
+		this.update(cli);
 		return s3Service.uploadFile(multipartFile);
 	}
 }
